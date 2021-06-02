@@ -26,14 +26,14 @@ public class Operation {
         System.out.println("Ingrese el número 2");
         op.setNum2(entrada.nextInt()); // 4
         
-        System.out.println(op.getNum1());
-        System.out.println(op.getNum2());
+        //System.out.println(op.getNum1());
+        //System.out.println(op.getNum2());
         
         
         
+        System.out.println("La división es: "+ op.division(op.getNum1(), op.getNum2()));
         
-        
-        
+        op.resta(op.getNum1(), op.getNum2());
         
        /* op.suma(op.getNum1(), op.getNum2());
         
