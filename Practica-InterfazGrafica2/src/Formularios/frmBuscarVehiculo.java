@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import Clases.Persona;
 import Clases.vehiculo;
 
 /**
@@ -53,12 +54,20 @@ public class frmBuscarVehiculo extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Marca", "Modelo", "Color", "Año de fabricación"
+                "Marca", "Modelo", "Color", "Año de fabricación", "Nombre alquiler"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -76,34 +85,37 @@ public class frmBuscarVehiculo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(196, 196, 196))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jButton1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(49, 49, 49)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,7 +126,8 @@ public class frmBuscarVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-        String mv[][]= new String[vehiculo.arrayVehiculo.size()][4];
+       
+        String mv[][]= new String[vehiculo.arrayVehiculo.size()][5];
         int contador=0;
         for (int i = 0; i < vehiculo.arrayVehiculo.size(); i++) {
             
@@ -124,6 +137,11 @@ public class frmBuscarVehiculo extends javax.swing.JFrame {
                 mv[contador][1] = vehiculo.arrayVehiculo.get(i).getModelo();
                 mv[contador][2] = vehiculo.arrayVehiculo.get(i).getColor();
                 mv[contador][3] = vehiculo.arrayVehiculo.get(i).getYear_fabricacion();
+                
+                if(Persona.arrayPersona.get(i).getIdpersona()==vehiculo.arrayVehiculo.get(i).getIdpersona()){
+                  mv[contador][4] = Persona.arrayPersona.get(i).getNombre() +" "+ Persona.arrayPersona.get(i).getApellido();
+                }
+                
                   contador++;
             }
         }
@@ -132,7 +150,7 @@ public class frmBuscarVehiculo extends javax.swing.JFrame {
           jTable1.setModel(new javax.swing.table.DefaultTableModel(
                     mv,
                     new String [] {
-                        "Marca", "Modelo", "Color", "Año de fabricación"
+                        "Marca", "Modelo", "Color", "Año de fabricación","Nombre alquiler"
                     }
                 ));
         

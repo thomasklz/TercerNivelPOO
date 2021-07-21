@@ -1,14 +1,16 @@
 
 package practica.interfazgrafica2;
 
-import Formularios.Principal;
+
+
+import Formularios.frmPrincipal;
 
 
 public class PracticaInterfazGrafica2 {
 
    
     public static void main(String[] args) {
-        Principal principal = new Principal ();
+        frmPrincipal principal = new frmPrincipal ();
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
     }
